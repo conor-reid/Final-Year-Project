@@ -1,6 +1,6 @@
 #include <Stepper.h> 
 
-const int stepsPerRevolution = 200;  // number of steps per revolution
+const int stepsPerRevolution = 200;  // defines the number of steps per revolution (what the user inputs).  
 float moves; 
 int i = 0;
 
@@ -10,16 +10,16 @@ Stepper myStepper(stepsPerRevolution,9,10,11,12);
 void setup() 
 {
   myStepper.setSpeed(75); //motor speed...max 100?
-  Serial.begin(9600); //baud rate
+  Serial.begin(9600); //baud rate (modulation rate)
 }
 
 void loop() 
 {
-  Serial.println("Enter value for moves, press ENTER"); //ask for input
-  if (Serial.available() == 0) ; //Pause for input   
+  Serial.println("Enter value for amount of moves, and press enter: "); //ask for input
+  if (Serial.available() == 0) ; //If available   
   {
-    moves = Serial.parseFloat(); // Assign input to multiple 
-    Serial.print("Moves = "); //Print input
+    moves = Serial.parseFloat(); // Assign input to moves 
+    Serial.print("Moves = "); //Print what the user inputted
     Serial.println(moves, DEC); 
 
     while (i < moves) //Loop to move the motor clockwise (positive input)
@@ -27,12 +27,7 @@ void loop()
       Serial.print ("Clockwise: "); //state direction
       myStepper.step(stepsPerRevolution); //take steps (myStepper included in the library "Stepper.h") 
       i++; //increment
-      Serial.println(i);
-      
-      if (i=0){      // bail out
-       i = 0;
-       break;
-              }
+      Serial.println(i);//Print value
     }
     i = 0; //reset the counter
 
